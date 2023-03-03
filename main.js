@@ -1,16 +1,24 @@
 // Set Variable
 
-const buttons = document.querySelectorAll('.btn')
-const divs = document.querySelectorAll('.container-box div')
-// console.log(divs);
+let buttons = document.querySelectorAll(".btn");
+let divs = document.querySelectorAll("div[data-name]");
 
-// Set Function 
+// Set Function
 
-buttons.forEach(function(ele) {
-  ele.onclick = function (){
-    let data = ele.getAttribute('data-name')
-    divs.forEach(function(ele){
-      ele.getAttribute('data-name')=== data?ele.style.opacity='.3':'';
-    })
-  }
-})
+buttons.forEach(function (button) {
+  let dataButton = button.getAttribute("data-name");
+  button.onclick = function () {
+    buttons.forEach(function (button) {
+      button.classList.remove("clicked");
+      divs.forEach(function (div) {
+        let dataDiv = div.getAttribute("data-name");
+        dataButton === dataDiv
+          ? div.setAttribute("class", "show")
+          : dataButton === "all"
+          ? div.setAttribute("class", "show")
+          : div.setAttribute("class", "dont-show");
+      });
+    });
+    button.classList.add("clicked");
+  };
+});
